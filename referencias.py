@@ -17,7 +17,7 @@ class TelaPython:
             [sg.Text('Nome do site', size=(18,0)), sg.Input(size=(30,0), key='nome_site')],
             [sg.Text('Ano da postagem', size=(18,0)), sg.Input(size=(30,0), key='ano')],
             [sg.Text('Link', size=(18,0)), sg.Input(size=(30,0), key='link')],
-            [sg.Button('Criar referência',  font=("Arial", 10)), sg.Button('Fechar',  font=("Arial", 10))],
+            [sg.Button('Criar referência',  font=("Arial", 10)), sg.Button('Fechar', font=("Arial", 10))],
             
             [sg.Output(size=(50,10))]
         ]
