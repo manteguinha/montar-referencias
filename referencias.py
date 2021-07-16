@@ -1,3 +1,4 @@
+from tkinter.font import BOLD
 import PySimpleGUI as sg
 from datetime import date
 import locale
@@ -17,7 +18,9 @@ class TelaPython:
             [sg.Text('Nome do site', size=(18,0)), sg.Input(size=(30,0), key='nome_site')],
             [sg.Text('Ano da postagem', size=(18,0)), sg.Input(size=(30,0), key='ano')],
             [sg.Text('Link', size=(18,0)), sg.Input(size=(30,0), key='link')],
-            [sg.Button('Criar referência',  font=("Arial", 10)), sg.Button('Fechar', font=("Arial", 10))],
+            [sg.Button('Criar referência',  font=("Arial", 10, BOLD)), sg.Button('Fechar', 
+                 font=("Arial", 10, BOLD)), sg.Button('Versão',  font=("Arial", 10, BOLD),
+                     button_color=('Black', 'Light Gray'))],
             
             [sg.Output(size=(50,10))]
         ]
@@ -28,16 +31,20 @@ class TelaPython:
             self.button, self.values = self.janela.Read()
             if self.button == 'Fechar':
                 break
-            nome_autor = self.values['autor']
-            nomeAutor = nome_autor.capitalize()
-            sobrenome_autor = self.values['sobrenome']
-            sobrenomeAutor = sobrenome_autor.upper()
-            titulo_materia = self.values['titulo']
-            site = self.values['nome_site']
-            ano_post = self.values['ano']
-            link_site = self.values['link']
-            print(f'{" ".join(sobrenomeAutor.split())}, {" ".join(nomeAutor.split())}. {" ".join(titulo_materia.split())}. {" ".join(site.split())}, {" ".join(ano_post.split())}. Disponível em: <{link_site.replace(" ", "")}>. Acesso em: {data_em_texto}.')
-            print(f'\n')
+            if self.button == 'Versão':
+                sg.popup('Versão: 0.02a', 'Created by: @manteguinha_mantega',
+                     font=("Arial", 10, BOLD))
+            else:
+                nome_autor = self.values['autor']
+                nomeAutor = nome_autor.capitalize()
+                sobrenome_autor = self.values['sobrenome']
+                sobrenomeAutor = sobrenome_autor.upper()
+                titulo_materia = self.values['titulo']
+                site = self.values['nome_site']
+                ano_post = self.values['ano']
+                link_site = self.values['link']
+                print(f'{" ".join(sobrenomeAutor.split())}, {" ".join(nomeAutor.split())}. {" ".join(titulo_materia.split())}. {" ".join(site.split())}, {" ".join(ano_post.split())}. Disponível em: <{link_site.replace(" ", "")}>. Acesso em: {data_em_texto}.')
+                print(f'\n')
 
 tela = TelaPython()
 tela.Iniciar()
