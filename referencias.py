@@ -1,3 +1,4 @@
+from tkinter import font
 from tkinter.font import BOLD
 import PySimpleGUI as sg
 from datetime import date
@@ -18,11 +19,11 @@ class TelaPython:
             [sg.Text('Nome do site', size=(18,0)), sg.Input(size=(30,0), key='nome_site')],
             [sg.Text('Ano da postagem', size=(18,0)), sg.Input(size=(30,0), key='ano')],
             [sg.Text('Link', size=(18,0)), sg.Input(size=(30,0), key='link')],
-            [sg.Button('Criar referência',  font=("Arial", 10, BOLD)), sg.Button('Fechar', 
-                 font=("Arial", 10, BOLD)), sg.Button('Versão',  font=("Arial", 10, BOLD),
-                     button_color=('Black', 'Light Gray'))],
-            
-            [sg.Output(size=(50,10))]
+            [sg.Button('Criar referência',  font=("Arial", 10, BOLD)), sg.Button('Limpar tela', 
+                font=("Arial", 10, BOLD)),sg.Button('Fechar', 
+                font=("Arial", 10, BOLD)), sg.Button('Versão',  font=("Arial", 10, BOLD),
+                    button_color=('Black', 'Light Gray'))],   
+            [sg.Output(size=(50,10), key='_OUTPUT_')]
         ]
         self.janela = sg.Window("Criar referências",  font=("Arial", 12)).layout(layout)
     
@@ -32,7 +33,9 @@ class TelaPython:
             if self.button == 'Fechar':
                 break
             if self.button == 'Versão':
-                sg.popup('Versão: 0.02a', 'Created by: @manteguinha_mantega',
+                sg.popup('Versão: 0.03a', '\nData da modificação: 26-07-2021', 
+                                    '\nMudanças: \nImplementação do botão Limpar tela. \nCorreção de bugs.', 
+                                    '\nCreated by: @manteguinha_mantega',
                      font=("Arial", 10, BOLD))
             else:
                 nome_autor = self.values['autor']
@@ -45,7 +48,7 @@ class TelaPython:
                 link_site = self.values['link']
                 print(f'{" ".join(sobrenomeAutor.split())}, {" ".join(nomeAutor.split())}. {" ".join(titulo_materia.split())}. {" ".join(site.split())}, {" ".join(ano_post.split())}. Disponível em: <{link_site.replace(" ", "")}>. Acesso em: {data_em_texto}.')
                 print(f'\n')
-
+            if self.button == 'Limpar tela':
+                self.janela['_OUTPUT_'].update(value='')
 tela = TelaPython()
 tela.Iniciar()
-
