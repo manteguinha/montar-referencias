@@ -34,7 +34,7 @@ class TelaPython:
             if self.button == 'Fechar':
                 break
             if self.button == 'Versão':
-                sg.popup('Versão: 0.05a', '\nData da modificação: 11-10-2021', 
+                sg.popup('Versão: 0.5.0', '\nData da modificação: 11-10-2021', 
                                     '\nMudanças: \nLimpa os campos. \nCorreção de bugs.', 
                                     '\nCreated by: @manteguinha_mantega',
                      font=("Arial", 10, BOLD))
