@@ -65,7 +65,7 @@ class TelaPython:
             if self.button == 'Copiar':
                 output = self.janela.find_element('_OUTPUT_').Get()
                 pyperclip.copy(output)
-                sg.popup_quick_message('Referência compiada!', background_color = 'LightGray', font=(BOLD), location=(960, 540))   
+                sg.popup_quick_message('Referência compiada!', background_color = 'LightGray', font=("Arial", 8, BOLD), location=(1015, 518))   
 
 tela = TelaPython()
 tela.Iniciar()
