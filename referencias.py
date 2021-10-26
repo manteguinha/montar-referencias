@@ -13,6 +13,8 @@ class TelaPython:
     sg.theme('Purple')
     def __init__(self):
         layout = [
+            [sg.Menu([['Sobre',['Versão']],
+                ['Sair',['Sair']]], font=("Arial", 8))],
             [sg.Text('Nome do autor', size=(18,0)), sg.Input(size=(30,0), key='autor')],
             [sg.Text('Sobrenome do autor', size=(18,0)), sg.Input(size=(30,0), key='sobrenome')],
             [sg.Text('Titulo da matéria', size=(18,0)), sg.Input(size=(30,0), key='titulo')],
@@ -20,25 +22,21 @@ class TelaPython:
             [sg.Text('Ano da postagem', size=(18,0)), sg.Input(size=(30,0), key='ano')],
             [sg.Text('Link', size=(18,0)), sg.Input(size=(30,0), key='link')],
             [sg.Button('Criar referência', font=("Arial", 10, BOLD)), 
-                sg.Button('Copiar', font=("Arial", 10, BOLD))],
-            [sg.Button('Limpar tela', font=("Arial", 10, BOLD)),
-                sg.Button('Fechar', font=("Arial", 10, BOLD)), 
-                sg.Button('Versão', font=("Arial", 10, BOLD), button_color=('Black', 'Light Gray'))],   
-            [sg.Output(size=(50,10), key='_OUTPUT_')]
+                sg.Button('Copiar', font=("Arial", 10, BOLD)),
+                sg.Button('Limpar tela', font=("Arial", 10, BOLD))], 
+            [sg.Output(size=(50,15), key='_OUTPUT_')]
         ]
         self.janela = sg.Window("Criar referências", font=("Arial", 12)).layout(layout)
     
     def Iniciar(self):
         while True:
             self.button, self.values = self.janela.Read()
-            if self.button == sg.WINDOW_CLOSED:
-                break
-            if self.button == 'Fechar':
+            if self.button in (None, sg.WINDOW_CLOSED, 'Sair'):
                 break
             if self.button == 'Versão':
-                sg.popup('Versão: 0.6.0', '\nData da modificação: 26-10-2021', 
-                                    '\nMudanças: \nBotão copiar. \nCorreção de bugs.', 
-                                    '\nCreated by: @manteguinha_mantega',
+                sg.popup('''Versão: 0.6.1 \nData da modificação: 26-10-2021
+                                    \nMudanças: \nBotão copiar. \nCorreção de bugs.
+                                    \nCreated by: @manteguinha_mantega''',
                      font=("Arial", 10, BOLD))
             if self.button == 'Criar referência':
                 nome_autor = self.values['autor'].capitalize()
