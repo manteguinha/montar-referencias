@@ -1,6 +1,7 @@
 from tkinter.font import BOLD
 import PySimpleGUI as sg
 from datetime import date
+import pyperclip
 import locale
 
 locale.setlocale(locale.LC_ALL, 'pt_BR')
@@ -18,13 +19,14 @@ class TelaPython:
             [sg.Text('Nome do site', size=(18,0)), sg.Input(size=(30,0), key='nome_site')],
             [sg.Text('Ano da postagem', size=(18,0)), sg.Input(size=(30,0), key='ano')],
             [sg.Text('Link', size=(18,0)), sg.Input(size=(30,0), key='link')],
-            [sg.Button('Criar referência',  font=("Arial", 10, BOLD)),  
-            sg.Button('Limpar tela',  font=("Arial", 10, BOLD)),sg.Button('Fechar', 
-                font=("Arial", 10, BOLD)), sg.Button('Versão',  font=("Arial", 10, BOLD),
-                    button_color=('Black', 'Light Gray'))],   
+            [sg.Button('Criar referência', font=("Arial", 10, BOLD)), 
+                sg.Button('Copiar', font=("Arial", 10, BOLD))],
+            [sg.Button('Limpar tela', font=("Arial", 10, BOLD)),
+                sg.Button('Fechar', font=("Arial", 10, BOLD)), 
+                sg.Button('Versão', font=("Arial", 10, BOLD), button_color=('Black', 'Light Gray'))],   
             [sg.Output(size=(50,10), key='_OUTPUT_')]
         ]
-        self.janela = sg.Window("Criar referências",  font=("Arial", 12)).layout(layout)
+        self.janela = sg.Window("Criar referências", font=("Arial", 12)).layout(layout)
     
     def Iniciar(self):
         while True:
@@ -34,21 +36,18 @@ class TelaPython:
             if self.button == 'Fechar':
                 break
             if self.button == 'Versão':
-                sg.popup('Versão: 0.5.0', '\nData da modificação: 11-10-2021', 
-                                    '\nMudanças: \nLimpa os campos. \nCorreção de bugs.', 
+                sg.popup('Versão: 0.6.0', '\nData da modificação: 26-10-2021', 
+                                    '\nMudanças: \nBotão copiar. \nCorreção de bugs.', 
                                     '\nCreated by: @manteguinha_mantega',
                      font=("Arial", 10, BOLD))
             if self.button == 'Criar referência':
-                nome_autor = self.values['autor']
-                nomeAutor = nome_autor.capitalize()
-                sobrenome_autor = self.values['sobrenome']
-                sobrenomeAutor = sobrenome_autor.upper()
+                nome_autor = self.values['autor'].capitalize()
+                sobrenome_autor = self.values['sobrenome'].upper()
                 titulo_materia = self.values['titulo']
                 site = self.values['nome_site']
                 ano_post = self.values['ano']
                 link_site = self.values['link']
-                print(f'{" ".join(sobrenomeAutor.split())}, {" ".join(nomeAutor.split())}. {" ".join(titulo_materia.split())}. {" ".join(site.split())}, {" ".join(ano_post.split())}. Disponível em: <{link_site.replace(" ", "")}>. Acesso em: {data_em_texto}.')
-                print(f'\n')
+                print(f'{" ".join(sobrenome_autor.split())}, {" ".join(nome_autor.split())}. {" ".join(titulo_materia.split())}. {" ".join(site.split())}, {" ".join(ano_post.split())}. Disponível em: <{link_site.replace(" ", "")}>. Acesso em: {data_em_texto}.\n')
                 self.janela.find_element('autor').Update('')
                 self.janela.find_element('sobrenome').Update('')
                 self.janela.find_element('titulo').Update('')
@@ -64,6 +63,11 @@ class TelaPython:
                 self.janela.find_element('nome_site').Update('')
                 self.janela.find_element('ano').Update('')
                 self.janela.find_element('link').Update('')
+
+            if self.button == 'Copiar':
+                output = self.janela.find_element('_OUTPUT_').Get()
+                pyperclip.copy(output)
+                sg.popup_quick_message('Referência compiada!', background_color = 'LightGray', font=(BOLD), location=(960, 540))   
 
 tela = TelaPython()
 tela.Iniciar()
