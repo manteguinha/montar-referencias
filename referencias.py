@@ -15,12 +15,12 @@ class TelaPython:
         layout = [
             [sg.Menu([['Sobre',['Versão']],
                 ['Sair',['Sair']]], font=("Arial", 8))],
-            [sg.Text('Nome do autor', size=(18,0)), sg.Input(size=(30,0), key='autor')],
-            [sg.Text('Sobrenome do autor', size=(18,0)), sg.Input(size=(30,0), key='sobrenome')],
-            [sg.Text('Titulo da matéria', size=(18,0)), sg.Input(size=(30,0), key='titulo')],
-            [sg.Text('Nome do site', size=(18,0)), sg.Input(size=(30,0), key='nome_site')],
-            [sg.Text('Ano da postagem', size=(18,0)), sg.Input(size=(30,0), key='ano')],
-            [sg.Text('Link', size=(18,0)), sg.Input(size=(30,0), key='link')],
+            [sg.Text('Nome do autor', size=(18,0)), sg.Input(size=(32,0), key='autor')],
+            [sg.Text('Sobrenome do autor', size=(18,0)), sg.Input(size=(32,0), key='sobrenome')],
+            [sg.Text('Titulo da matéria', size=(18,0)), sg.Input(size=(32,0), key='titulo')],
+            [sg.Text('Nome do site', size=(18,0)), sg.Input(size=(32,0), key='nome_site')],
+            [sg.Text('Ano da postagem', size=(18,0)), sg.Input(size=(32,0), key='ano')],
+            [sg.Text('Link', size=(18,0)), sg.Input(size=(32,0), key='link')],
             [sg.Button('Criar referência', font=("Arial", 10, BOLD)), 
                 sg.Button('Copiar', font=("Arial", 10, BOLD)),
                 sg.Button('Limpar tela', font=("Arial", 10, BOLD))], 
@@ -34,18 +34,43 @@ class TelaPython:
             if self.button in (None, sg.WINDOW_CLOSED, 'Sair'):
                 break
             if self.button == 'Versão':
-                sg.popup('''Versão: 0.6.1 \nData da modificação: 26-10-2021
-                                    \nMudanças: \nBotão copiar. \nCorreção de bugs.
+                sg.popup('''Versão: 0.7.0 \nData da modificação: 18-05-2022
+                                    \nMudanças: \nMelhorias na criação de referências. \nCorreção de bugs.
                                     \nCreated by: @manteguinha_mantega''',
                      font=("Arial", 10, BOLD))
+
             if self.button == 'Criar referência':
-                nome_autor = self.values['autor'].capitalize()
-                sobrenome_autor = self.values['sobrenome'].upper()
-                titulo_materia = self.values['titulo']
-                site = self.values['nome_site']
-                ano_post = self.values['ano']
-                link_site = self.values['link']
-                print(f'{" ".join(sobrenome_autor.split())}, {" ".join(nome_autor.split())}. {" ".join(titulo_materia.split())}. {" ".join(site.split())}, {" ".join(ano_post.split())}. Disponível em: <{link_site.replace(" ", "")}>. Acesso em: {data_em_texto}.\n')
+                if self.values['autor'] == '':
+                    nome_autor = ''
+                else:
+                    nome_autor = self.values['autor'].title()+'. '
+              
+                if self.values['sobrenome'] == '':
+                    sobrenome_autor = ''
+                else:
+                    sobrenome_autor = self.values['sobrenome'].upper()+', '
+               
+                if self.values['titulo'] == '':
+                    titulo_materia = ''
+                else:
+                    titulo_materia = self.values['titulo']+'. '
+              
+                if self.values['nome_site'] == '':
+                    site = ''
+                else:
+                    site = self.values['nome_site']+', '
+          
+                if self.values['ano'] == '':
+                    ano_post = ''
+                else:
+                    ano_post = self.values['ano']+'. '
+           
+                if self.values['link'] == '':
+                    link_site = ''
+                else:
+                    link_site = self.values['link']
+                    
+                print(f'{sobrenome_autor}{nome_autor}{titulo_materia}{site}{ano_post}Disponível em: <{link_site.replace(" ", "")}>. Acesso em: {data_em_texto}.\n')
                 self.janela.find_element('autor').Update('')
                 self.janela.find_element('sobrenome').Update('')
                 self.janela.find_element('titulo').Update('')
